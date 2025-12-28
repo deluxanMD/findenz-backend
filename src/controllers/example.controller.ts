@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { exampleService } from '../services/example.service'
+import { exampleService } from '@/services/example.service'
 
 export const exampleController = {
   getAll: async (_req: Request, res: Response, next: NextFunction) => {
