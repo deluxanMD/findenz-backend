@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { exampleService } from '@/services/example.service'
-import { exampleSchema } from '@/schemas/example.schema'
+// import { exampleSchema } from '@/schemas/example.schema'
 
 export const exampleController = {
   getAll: async (_req: Request, res: Response, next: NextFunction) => {
@@ -13,12 +13,12 @@ export const exampleController = {
   },
 
   getById: async (req: Request, res: Response, next: NextFunction) => {
-    const parseResult = exampleSchema.safeParse(req.params)
+    // const parseResult = exampleSchema.safeParse(req.params)
 
-    if (!parseResult.success) {
-      res.status(400).json({ success: false, error: JSON.parse(parseResult.error.message) })
-      return
-    }
+    // if (!parseResult.success) {
+    //   res.status(400).json({ success: false, error: JSON.parse(parseResult.error.message) })
+    //   return
+    // }
 
     try {
       const { id } = req.params
