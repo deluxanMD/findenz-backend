@@ -1,23 +1,17 @@
-import { Example } from '../types'
+import { Example } from '@/entities/example.entity'
+import { ExampleRepository } from '@/repositories/example.repository'
+import { PageQuery, PaginateResponse } from '@/types'
 
 export const exampleService = {
-  getAll: async (): Promise<Example[]> => {
-    // Your business logic here
-    return [
-      {
-        id: '1',
-        name: 'Example 1',
-        createdAt: new Date(),
-      },
-    ]
+  getAll: async (pageQuery: PageQuery): Promise<PaginateResponse<Example, 'examples'>> => {
+    return ExampleRepository.findAll(pageQuery)
   },
 
   getById: async (id: string): Promise<Example | null> => {
-    // Your business logic here
-    return {
-      id,
-      name: 'Example',
-      createdAt: new Date(),
-    }
+    return ExampleRepository.getById(id)
+  },
+
+  create: async (payload: Example): Promise<void> => {
+    return ExampleRepository.createExample(payload)
   },
 }

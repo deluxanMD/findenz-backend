@@ -9,10 +9,11 @@ const validateRequest = (schema: ZodType, source: ValidationSource = ValidationS
       const data = schema.parse(req[source])
       Object.assign(req[source], data)
       next()
-      next()
     } catch (err) {
       if (err instanceof ZodError) {
-        const message = err.issues.map((issue) => issue.message).join(', ')
+        const message = err.issues
+          .map((issue) => issue.path.join('.') + ': ' + issue.message)
+          .join('; ')
         return next(new Error(message))
       }
     }

@@ -1,11 +1,19 @@
-export interface Example {
-  id: string
-  name: string
-  createdAt: Date
+export type PaginatedData<K extends string> = {
+  [P in `total${Capitalize<K>}`]: number
+} & {
+  totalPages: number
+  currentPage: number
+  perPage: number
 }
 
-export interface ApiResponse<T> {
-  success: boolean
-  data?: T
+export type PaginateResponse<T, K extends string> = {
+  [P in K]: T[]
+} & {
+  page: PaginatedData<K>
   message?: string
+}
+
+export type PageQuery = {
+  take: string
+  skip: string
 }

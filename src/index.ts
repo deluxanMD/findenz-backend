@@ -1,7 +1,9 @@
+import 'reflect-metadata'
 import express, { Application } from 'express'
 import dotenv from 'dotenv'
 
 import { errorMiddleware } from '@/middlewares/error.middleware'
+import { initializeDatabase } from '@/config/datasource'
 import exampleRoutes from '@/routes/example.route'
 
 dotenv.config({ debug: true })
@@ -19,6 +21,18 @@ app.use('/api/examples', exampleRoutes)
 // Error handling
 app.use(errorMiddleware)
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`)
-})
+// Initialize database and start server
+const startServer = async () => {
+  try {
+    await initializeDatabase()
+
+    app.listen(PORT, () => {
+      console.log(`🚀 Server is running on port ${PORT}`)
+    })
+  } catch (error) {
+    console.error('Failed to start server:', error)
+    process.exit(1)
+  }
+}
+
+startServer()
