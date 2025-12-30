@@ -1,18 +1,23 @@
 import request from 'supertest'
 import express from 'express'
 import exampleRoutes from '@/routes/example.route'
+import { exampleService } from '@/services/example.service'
 
 const app = express()
 app.use(express.json())
 app.use('/api/examples', exampleRoutes)
 
 describe('Example Routes', () => {
-  describe('GET /api/examples', () => {
+  describe.only('GET /api/examples', () => {
     it('should return 200 and array of examples', async () => {
+      const mockedGetAll = exampleService.getAll as jest.Mock
+
+      mockedGetAll([{ id: 1, name: 'Test' }])
+
       const response = await request(app).get('/api/examples').expect(200)
 
       expect(response.body.success).toBe(true)
-      expect(Array.isArray(response.body.data)).toBe(true)
+      expect(response.body.data[0].name).toBe('Test Example')
     })
   })
 

@@ -56,7 +56,7 @@ describe('Example Service', () => {
     })
   })
 
-  describe.only('getById', () => {
+  describe('getById', () => {
     beforeEach(() => {
       const mockExample = {
         id: '123',
