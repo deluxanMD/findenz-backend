@@ -3,15 +3,15 @@ import { ExampleRepository } from '@/repositories/example.repository'
 import { PageQuery, PaginateResponse } from '@/types'
 
 export const exampleService = {
-  getAll: async (pageQuery: PageQuery): Promise<PaginateResponse<Example, 'examples'>> => {
-    return ExampleRepository.findAll(pageQuery)
+  getAll: async (pageQuery?: PageQuery): Promise<PaginateResponse<Example, 'examples'>> => {
+    return await ExampleRepository.findAll(pageQuery)
   },
 
   getById: async (id: string): Promise<Example | null> => {
-    return ExampleRepository.getById(id)
+    return await ExampleRepository.findById(id)
   },
 
   create: async (payload: Example): Promise<void> => {
-    return ExampleRepository.createExample(payload)
+    return await ExampleRepository.createExample(payload)
   },
 }

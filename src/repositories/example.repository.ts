@@ -16,19 +16,9 @@ export const ExampleRepository = AppDataSource.getRepository(Example).extend({
     })
 
     return toPaginateResponse(data, 'examples', pageQuery as ParsedQs)
-
-    // return {
-    //   examples,
-    //   page: {
-    //     totalExamples,
-    //     totalPages: take ? Math.ceil(totalExamples / Number(take)) : 1,
-    //     currentPage: skip ? Number(skip) + 1 : 1,
-    //     perPage: take ? Number(take) : 1000,
-    //   },
-    // }
   },
 
-  async getById(id: string): Promise<Example | null> {
+  async findById(id: string): Promise<Example | null> {
     return await this.findOneBy({ id })
   },
 
