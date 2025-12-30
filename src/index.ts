@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import express, { Application } from 'express'
 import dotenv from 'dotenv'
+import pino from 'pino-http'
 
 import { errorMiddleware } from '@/middlewares/error.middleware'
 import { initializeDatabase } from '@/config/datasource'
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 3000
 // Middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(pino({ transport: { target: 'pino-pretty', options: { colorize: true } } }))
 
 // Routes
 app.use('/api/examples', exampleRoutes)
